@@ -1,68 +1,151 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  --primary-background: #F5F5F7;
+  --text-color: #1D1D1F;
+  --accent-color: #007AFF;
+  --card-background: #FFFFFF;
+  --border-color: #D1D1D6;
+  --subtle-shadow: 0 1px 2px 0 rgba(0,0,0,0.05), 0 1px 3px 0 rgba(0,0,0,0.04);
+  --strong-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  line-height: 1.6;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
+  background-color: var(--primary-background);
+  color: var(--text-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  display: flex; /* Keep this if your app structure relies on it, otherwise remove */
+  justify-content: center; /* Keep this if your app structure relies on it, otherwise remove */
+  min-height: 100vh;
+  /* place-items: center; /* Consider removing or adjusting based on new layout */
+  /* min-width: 320px; /* Adjust as needed */
 }
 
 a {
   font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+a:hover {
+  color: #0056b3; /* Darker shade of accent for hover */
+  text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 0.75em;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: 2.8em; /* Adjusted for a cleaner look */
 }
 
-button {
+h2 {
+  font-size: 2em;
+  margin-top: 1.5em; /* Space above section titles */
+  padding-bottom: 0.5em; /* Space below section titles */
+  border-bottom: 1px solid var(--border-color); /* Subtle separator for sections */
+}
+
+p {
+  margin-bottom: 1em;
+}
+
+button, .button-like { /* .button-like for anchor tags styled as buttons */
+  display: inline-block;
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+  padding: 0.7em 1.4em;
+  font-size: 0.95em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--accent-color);
+  color: #FFFFFF;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+  text-align: center;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+button:hover, .button-like:hover {
+  background-color: #0056b3; /* Darker accent */
+  border-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+button:focus,
+button:focus-visible,
+.button-like:focus,
+.button-like:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color; /* Default focus, consider custom if needed */
+  outline-color: var(--accent-color);
+}
+
+/* Remove dark mode specific styles if not implementing a toggle, or adjust them to fit Apple's aesthetic */
+/* @media (prefers-color-scheme: light) { ... } - This block might be redundant now */
+
+/* Utility classes */
+.section-wrapper {
+  width: 100%;
+  max-width: 1100px; /* Max width for content */
+  margin: 0 auto; /* Center content */
+  padding: 2rem 1.5rem; /* Padding for sections */
+  opacity: 0; /* For fade-in animation */
+  transform: translateY(20px); /* For fade-in animation */
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.section-wrapper.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.responsive-grid {
+  display: grid;
+  gap: 1.5rem; /* Space between grid items */
+}
+
+@media (min-width: 768px) {
+  .responsive-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for tablet and up */
   }
-  a:hover {
-    color: #747bff;
+}
+
+@media (min-width: 1024px) {
+  .responsive-grid.three-cols { /* Optional class for 3 columns on larger screens */
+    grid-template-columns: repeat(3, 1fr);
   }
-  button {
-    background-color: #f9f9f9;
-  }
+}
+
+/* General card styling */
+.card {
+  background-color: var(--card-background);
+  border-radius: 12px; /* Softer, Apple-like corners */
+  padding: 1.5rem;
+  box-shadow: var(--subtle-shadow);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--strong-shadow);
+}
+#root { /* Ensure root takes full width */
+  width: 100%;
 }
